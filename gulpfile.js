@@ -49,7 +49,10 @@ gulp.task('watch', function() {
 
     return watcher.bundle()
       .on("error", function(err) {
-        gutil.log("Browserify error:", err);
+        gutil.log(
+          gutil.colors.red("Browserify compile error:"),
+          err.message
+        );
         this.emit('end');
       })
       .pipe(source(path.OUT))
