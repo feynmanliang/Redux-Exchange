@@ -3,21 +3,20 @@ import { ADD_TRADE, REMOVE_TRADE } from './actions'
 
 const tradesReducer = (isBid) => {
   return (state = [], action) => {
-    if (action.isBid === isBid) {
-      switch (action.type) {
-        case ADD_TRADE:
-          return [
-            ...state,
-            action
-          ];
-        case REMOVE_TRADE:
-          // TODO
-        default:
+    switch (action.type) {
+      case ADD_TRADE:
+        console.log("a")
+        if (action.isBid !== isBid) {
           return state;
-      }
-    }
-    else {
-      return state;
+        }
+        return [
+          ...state,
+          action
+        ];
+      case REMOVE_TRADE:
+        return state.filter(trade => trade.id !== action.id);
+      default:
+        return state;
     }
   }
 }

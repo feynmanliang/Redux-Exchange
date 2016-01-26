@@ -23,8 +23,9 @@ export function addTrade(trade) {
 }
 
 export function removeTrade(trade) {
+  console.log(trade);
   return {
     type: REMOVE_TRADE,
-    id: trade.id
-  }
+    id: tradeId
+  };
 }
