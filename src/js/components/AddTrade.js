@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react'
+import { TradeTypes } from '../actions'
+
+const { BID, ASK } = TradeTypes
 
 export default class AddTrade extends Component {
   static propTypes = {
@@ -7,8 +10,10 @@ export default class AddTrade extends Component {
   render() {
     return (
       <div>
-        <input type="radio" name="bid-ask" ref='bid' defaultChecked />Bid<br />
-        <input type="radio" name="bid-ask" ref='ask' />Ask<br />
+        <select defaultValue="bid" ref="tradeType">
+          <option value={BID}>Bid</option>
+          <option value={ASK}>Ask</option>
+        </select>
         <input type="number" min="0" max="100" step="0.01" defaultValue="0" ref='price' />
         <button onClick={(e) => this.handleClick(e)}>
           Place Trade
@@ -19,10 +24,9 @@ export default class AddTrade extends Component {
 
   handleClick(e) {
     const price = parseFloat(this.refs.price.value.trim());
-    const isBid = this.refs.bid.checked;
+    const tradeType = this.refs.tradeType.value;
     const user = "TODO: change this in AddTrade";
-    this.props.onAddClick({user, price, isBid});
+    this.props.onAddClick({user, price, tradeType});
     this.refs.price.value = 0
-    this.refs.bid.checked = true
   }
 }

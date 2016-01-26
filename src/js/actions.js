@@ -8,6 +8,10 @@ export const REMOVE_TRADE = 'REMOVE_TRADE'
 /*
  * other constants
  */
+export const TradeTypes = {
+  BID: 'BID',
+  ASK: 'ASK'
+}
 
 /*
  * action creators
@@ -22,8 +26,7 @@ export function addTrade(trade) {
   };
 }
 
-export function removeTrade(trade) {
-  console.log(trade);
+export function removeTrade(tradeId) {
   return {
     type: REMOVE_TRADE,
     id: tradeId

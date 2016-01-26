@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux'
-import { ADD_TRADE, REMOVE_TRADE } from './actions'
+import { ADD_TRADE, REMOVE_TRADE, TradeTypes } from './actions'
 
-const tradesReducer = (isBid) => {
+const { BID, ASK } = TradeTypes
+
+const tradesReducer = (tradeType) => {
   return (state = [], action) => {
     switch (action.type) {
       case ADD_TRADE:
-        console.log("a")
-        if (action.isBid !== isBid) {
+        if (action.tradeType !== tradeType) {
           return state;
         }
         return [
@@ -22,8 +23,8 @@ const tradesReducer = (isBid) => {
 }
 
 const exchangeApp = combineReducers({
-  bids: tradesReducer(true),
-  asks: tradesReducer(false)
+  bids: tradesReducer(BID),
+  asks: tradesReducer(ASK)
 });
 
 export default exchangeApp

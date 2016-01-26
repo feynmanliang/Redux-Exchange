@@ -22,8 +22,14 @@ class App extends Component {
     const { dispatch, bids, asks } = this.props
     return (
       <div>
-        <TradesList trades={bids} onClickTrade={(tradeId) => dispatch(removeTrade(tradeId))}/>
-        <TradesList trades={asks} onClickTrade={(tradeId) => dispatch(removeTrade(tradeId))}/>
+        <TradesList
+          title="Bids"
+          trades={bids}
+          onClickTrade={(tradeId) => dispatch(removeTrade(tradeId))} />
+        <TradesList
+          title="Asks"
+          trades={asks}
+          onClickTrade={(tradeId) => dispatch(removeTrade(tradeId))} />
         <AddTrade onAddClick={(trade) => dispatch(addTrade(trade))} />
       </div>
     )
