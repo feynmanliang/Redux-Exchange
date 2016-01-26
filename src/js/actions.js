@@ -2,8 +2,8 @@
  * action types
  */
 
-export const INCREMENT = 'INCREMENT'
-export const DECREMENT = 'DECREMENT'
+export const ADD_TRADE = 'ADD_TRADE'
+export const REMOVE_TRADE = 'REMOVE_TRADE'
 
 /*
  * other constants
@@ -12,15 +12,19 @@ export const DECREMENT = 'DECREMENT'
 /*
  * action creators
  */
+let nextTradeId = 0;
 
-export function increment() {
+export function addTrade(trade) {
   return {
-    type: INCREMENT,
+    type: ADD_TRADE,
+    id: nextTradeId++,
+    ...trade
   };
 }
 
-export function decrement() {
+export function removeTrade(trade) {
   return {
-    type: DECREMENT
-  };
+    type: REMOVE_TRADE,
+    id: trade.id
+  }
 }

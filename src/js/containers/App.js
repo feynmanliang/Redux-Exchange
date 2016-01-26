@@ -1,20 +1,30 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { increment, decrement } from '../actions'
-import Counter from '../components/Counter'
+import { addTrade, removeTrade } from '../actions'
+import TradesList from '../components/TradesList'
+import AddTrade from '../components/AddTrade'
 
 class App extends Component {
   static propTypes = {
-    count: React.PropTypes.number.isRequired
+    bids: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      user: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired
+    }).isRequired).isRequired,
+    asks: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      user: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired
+    }).isRequired).isRequired
   };
   render() {
     // Injected by connect()
-    const { dispatch, count } = this.props
+    const { dispatch, bids, asks } = this.props
     return (
       <div>
-        <Counter count={count} />
-        <button onClick={() => dispatch(increment())}>+</button>
-        <button onClick={() => dispatch(decrement())}>-</button>
+        <TradesList trades={bids}/>
+        <TradesList trades={asks}/>
+        <AddTrade onAddClick={(trade) => dispatch(addTrade(trade))} />
       </div>
     )
   }
@@ -24,7 +34,7 @@ class App extends Component {
 // Note: use https://github.com/faassen/reselect for better performance.
 function select(state) {
   return {
-    count: state.count
+    ...state
   }
 }
 

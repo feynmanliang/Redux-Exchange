@@ -1,21 +1,30 @@
 import { combineReducers } from 'redux'
-import { INCREMENT, DECREMENT } from './actions'
+import { ADD_TRADE, REMOVE_TRADE } from './actions'
 
-function counter(state = { count: 0 }, action) {
-  switch (action.type) {
-    case INCREMENT:
-      return {
-        ...state,
-        count: state.count + 1
+const tradesReducer = (isBid) => {
+  return (state = [], action) => {
+    if (action.isBid === isBid) {
+      switch (action.type) {
+        case ADD_TRADE:
+          return [
+            ...state,
+            action
+          ];
+        case REMOVE_TRADE:
+          // TODO
+        default:
+          return state;
       }
-    case DECREMENT:
-      return {
-        ...state,
-        count: state.count - 1
-      }
-    default:
-      return state
+    }
+    else {
+      return state;
+    }
   }
 }
 
-export default counter
+const exchangeApp = combineReducers({
+  bids: tradesReducer(true),
+  asks: tradesReducer(false)
+});
+
+export default exchangeApp
