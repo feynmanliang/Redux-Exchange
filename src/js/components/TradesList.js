@@ -31,12 +31,9 @@ class TradesList extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({})
-const mapDispatchToProps = (dispatch) => ({
-  onClickTrade: (tradeId) => dispatch(removeTrade(tradeId))
-})
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  null,
+  (dispatch) => ({
+    onClickTrade: (tradeId) => dispatch(removeTrade(tradeId))
+  })
 )(TradesList)

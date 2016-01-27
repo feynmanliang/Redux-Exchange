@@ -32,12 +32,9 @@ class AddTrade extends Component {
   }
 }
 
-const mapStateToProps = (state) => state
-const mapDispatchToProps = (dispatch) => ({
-  onAddClick: (trade) => dispatch(addTrade(trade))
-})
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  null,
+  (dispatch) => ({
+    onAddClick: (trade) => dispatch(addTrade(trade))
+  })
 )(AddTrade)

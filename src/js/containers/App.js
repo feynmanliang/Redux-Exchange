@@ -33,16 +33,12 @@ class App extends Component {
   }
 }
 
-// Which props do we want to inject, given the global state?
-// Note: use https://github.com/faassen/reselect for better performance.
-const mapStateToProps = (state) => ({
-  bids: state.bids,
-  asks: state.asks
-})
-const mapDispatchToProps = (dispatch) => ({})
 
 // Wrap the component to inject dispatch and state into
+// Note: use https://github.com/faassen/reselect for better connect selector performance.
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  (state) => ({
+    bids: state.bids,
+    asks: state.asks
+  })
 )(App)
