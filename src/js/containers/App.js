@@ -38,11 +38,11 @@ class App extends Component {
 
 // Which props do we want to inject, given the global state?
 // Note: use https://github.com/faassen/reselect for better performance.
-function select(state) {
-  return {
-    ...state
-  }
-}
+const mapStateToProps = (state) => { return state; }
+const mapDispatchToProps = (dispatch) => { return { dispatch }; }
 
 // Wrap the component to inject dispatch and state into
-export default connect(select)(App)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
