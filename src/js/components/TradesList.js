@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Trade from './Trade'
-import { removeTrade } from '../actions'
+import { removeTrade, TradeTypes } from '../actions'
+
+const { BID, ASK } = TradeTypes
 
 class TradesList extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    tradeType: PropTypes.string.isRequired,
     onClickTrade: PropTypes.func.isRequired,
     trades: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -32,7 +35,22 @@ class TradesList extends Component {
 }
 
 export default connect(
-  null,
+  (store, ownProps) => {
+    switch (ownProps.tradeType) {
+      case BID:
+        return {
+          title: "Bids",
+          trades: store.bids
+        }
+      case ASK:
+        return {
+          title: "Asks",
+          trades: store.asks
+        }
+      default:
+        throw "Unrecognized Trade Type";
+    }
+  },
   (dispatch) => ({
     onClickTrade: (tradeId) => dispatch(removeTrade(tradeId))
   })

@@ -2,31 +2,19 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import TradesList from '../components/TradesList'
 import AddTrade from '../components/AddTrade'
+import { TradeTypes } from '../actions'
+
+const { BID, ASK } = TradeTypes
 
 class App extends Component {
-  static propTypes = {
-    bids: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      user: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired
-    }).isRequired).isRequired,
-    asks: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      user: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired
-    }).isRequired).isRequired
-  };
   render() {
     // Injected by connect()
-    const { dispatch, bids, asks } = this.props
     return (
       <div>
         <TradesList
-          title="Bids"
-          trades={bids} />
+          tradeType={BID} />
         <TradesList
-          title="Asks"
-          trades={asks} />
+          tradeType={ASK} />
         <AddTrade />
       </div>
     )
@@ -36,9 +24,4 @@ class App extends Component {
 
 // Wrap the component to inject dispatch and state into
 // Note: use https://github.com/faassen/reselect for better connect selector performance.
-export default connect(
-  (state) => ({
-    bids: state.bids,
-    asks: state.asks
-  })
-)(App)
+export default connect()(App)
