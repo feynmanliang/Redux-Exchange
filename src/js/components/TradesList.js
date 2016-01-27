@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Trade from './Trade'
+import { removeTrade } from '../actions'
 
-export default class TradesList extends Component {
+class TradesList extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     onClickTrade: PropTypes.func.isRequired,
@@ -12,14 +14,15 @@ export default class TradesList extends Component {
     }).isRequired).isRequired
   };
   render() {
+    const {title, onClickTrade, trades} = this.props;
     return (
       <div>
-        <h1>{this.props.title}</h1>
+        <h1>{title}</h1>
         <ul>
-          {this.props.trades.map(trade =>
+          {trades.map(trade =>
             <Trade
               key={trade.id}
-              onClickTrade={this.props.onClickTrade}
+              onClickTrade={onClickTrade}
               {...trade} />
           )}
         </ul>
@@ -27,3 +30,13 @@ export default class TradesList extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({})
+const mapDispatchToProps = (dispatch) => ({
+  onClickTrade: (tradeId) => dispatch(removeTrade(tradeId))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TradesList)

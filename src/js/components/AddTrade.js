@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { TradeTypes } from '../actions'
+import { connect } from 'react-redux'
+import { addTrade, TradeTypes } from '../actions'
 
 const { BID, ASK } = TradeTypes
 
-export default class AddTrade extends Component {
+class AddTrade extends Component {
   static propTypes = {
     onAddClick: PropTypes.func.isRequired
   };
@@ -30,3 +31,13 @@ export default class AddTrade extends Component {
     this.refs.price.value = 0
   }
 }
+
+const mapStateToProps = (state) => state
+const mapDispatchToProps = (dispatch) => ({
+  onAddClick: (trade) => dispatch(addTrade(trade))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddTrade)
